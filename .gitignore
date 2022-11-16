@@ -1,0 +1,17 @@
+admin/
+resources/
+temp/
+published_content/
+private_content/
+.commitmessage
+.vscode/
+*/node_modules/
+.lastcommit
+.vscode
+markdown_tools/
+*.tmp
+*.bak
+*.swp
+.env
+*/.env
+.DS_Store

@@ -1,0 +1,67 @@
+{
+  // See http://eslint.org/docs/rules/
+  "extends": [
+        "eslint:recommended"
+  ],
+
+  "env": {
+    "browser": true,     // browser global variables.
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+
+  "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "script"
+  },
+  "overrides": [ {
+    "files": ["*.mjs", 
+    "*.cjs", 
+    "**/modules/*.js", 
+    "**/__tests__/*.js", 
+    "**/api/*.js",
+    "**/src/**/*.js",
+    "**/controllers/*.js"],
+    "parserOptions": {
+      "sourceType":"module"
+    }
+  } ],
+
+  "rules": {
+    ////////// Possible Errors //////////
+    "no-console": "off",
+  //  "no-unused-vars": "warn",
+    "no-undef": "off",
+    "no-extra-parens": "warn",
+    "indent": ["error", 2],
+    "block-scoped-var": "warn",
+    "curly": "warn",
+    "default-case": "warn",
+ //   "dot-location": ["warn", "object"],
+    "eqeqeq": "warn",
+    "no-alert": "warn",
+    "no-eq-null": "warn",
+    "no-eval": "warn",
+    "no-implicit-coercion": "warn",
+    "no-lone-blocks": "error",
+    "no-loop-func": "warn",
+    "no-multi-str": "warn",
+    "no-self-compare": "warn",
+    "strict": ["warn", "global"],
+    "no-lonely-if": "warn",
+    ////////// Style //////////
+    "array-bracket-spacing": ["warn", "never"],
+    "array-bracket-newline": ["warn", "consistent"],
+    "camelcase": "error",
+    "comma-spacing": ["warn", { "before": false, "after": true }],
+    "comma-style": ["warn", "last"],
+    "brace-style": ["warn"],
+    "max-len": ["warn", 100],
+    "no-inline-comments": "error",
+    "no-tabs": "error",
+    "quotes": "off",
+    "space-infix-ops": "warn",
+    "space-unary-ops": "warn"
+  }
+}
