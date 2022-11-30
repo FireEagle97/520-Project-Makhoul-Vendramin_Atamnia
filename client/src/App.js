@@ -6,34 +6,25 @@ import {
   TileLayer,
   useMap,
   Popup,
-  Marker
+  Marker,
+  Circle,
+  Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 
 
+const polyline = [
+  [45.4897, -73.5881],
+  [43,-72],
+  [43,-72.12]
+]
+
 
 function App() {
-  const position = [51.505, -0.09]
+  const position = [45.4897, -73.5881]
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    // center={position} zoom={13} scrollWheelZoom={false} style={{height: "500px", width: "100%"}}
     <MapContainer 
-        center={[51.505, -0.09]}
+        center={[45.5019, -73.5674]}
         zoom={13}
         scrollWheelZoom={false}
         style={{ height: "100vh" }}
@@ -43,6 +34,8 @@ function App() {
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       
     />
+    <Circle center={position} radius={1200}></Circle> 
+    <Polyline positions={polyline}/>
     <Marker position={position}>
       <Popup>
         A pretty CSS3 popup. <br /> Easily customizable.
