@@ -13,7 +13,7 @@ import "leaflet/dist/leaflet.css"
 
 
 function App() {
-  const position = [51.505, -0.09]
+  const position = [45.4897, -73.5881]
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -33,7 +33,7 @@ function App() {
     // </div>
     // center={position} zoom={13} scrollWheelZoom={false} style={{height: "500px", width: "100%"}}
     <MapContainer 
-        center={[51.505, -0.09]}
+        center={[45.5019, -73.5674]}
         zoom={13}
         scrollWheelZoom={false}
         style={{ height: "100vh" }}
