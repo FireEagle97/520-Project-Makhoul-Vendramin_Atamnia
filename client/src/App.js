@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
 import {
   MapContainer,
   TileLayer,
@@ -13,25 +14,12 @@ import "leaflet/dist/leaflet.css"
 
 
 function App() {
-  const position = [45.4897, -73.5881]
+  const [position, setPosition] = useState([[45.4897, -73.5881]])
+  useEffect(() => {
+    setPosition([[45.4897, -73.5881], [45.4800, -73.5889],[45.4890, -73.5870], [45.4980, -73.5889]])
+  });
+  
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    // center={position} zoom={13} scrollWheelZoom={false} style={{height: "500px", width: "100%"}}
     <MapContainer 
         center={[45.5019, -73.5674]}
         zoom={13}
@@ -41,13 +29,14 @@ function App() {
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      
     />
-    <Marker position={position}>
+    {position.map((pos) =>
+    <Marker position= {pos}>
       <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
+        Dawson College
       </Popup>
     </Marker>
+  )};
   </MapContainer>
   );
 }
