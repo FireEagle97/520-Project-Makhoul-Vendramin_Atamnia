@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia/issues"
   },
-  "homepage": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia#readme"
+  "homepage": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
