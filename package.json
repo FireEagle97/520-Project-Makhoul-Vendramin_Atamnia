@@ -4,7 +4,9 @@
   "description": "track STM buses schedule and movement",
   "main": "index.js",
   "scripts": {
-    "test": "node server/server.js"
+    "test": "jest",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "start": "node server/bin/wwww"
   },
   "repository": {
     "type": "git",

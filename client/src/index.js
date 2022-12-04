@@ -7,9 +7,21 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App
+    getInfo />
   </React.StrictMode>
 );
+const serverURL = "http://localhost:3001/"
+getInfo()
+async function getInfo() {
+  
+  const res = await fetch(serverURL,
+    {
+      method: 'GET'
+    })
+    const data = await res.json()
+    console.log(data.line)
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
