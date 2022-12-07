@@ -5,10 +5,8 @@ import React, {useState, useEffect} from 'react';
 import {
   MapContainer,
   TileLayer,
-  useMap,
   Popup,
   Marker,
-  Circle,
   Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"

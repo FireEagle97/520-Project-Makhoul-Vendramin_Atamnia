@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "cd client && npm install && npm run build && cd ../server && npm install",
-    "start": "node server/bin/wwww"
+    "start": "cd server && node bin/wwww"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,6 @@
   "bugs": {
     "url": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia/issues"
   },
-  "homepage": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia#readme",
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+  "homepage": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia#readme"
+
 }
