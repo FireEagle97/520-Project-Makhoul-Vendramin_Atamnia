@@ -12,6 +12,7 @@ import {
   Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
+import { marker, popup } from 'leaflet';
 
 // const polyline = [
 //   [45.446466,-73.603118],
@@ -48,14 +49,7 @@ function App() {
   const [position, setPosition] = useState([[45.4897, -73.5881]])
   const [lanePositon , setLanePositon] = useState([])
   
-  useEffect(() => {
-    fetch("lanes/1")
-    .then((res) => res.json())
-    .then((data) =>{
-     console.log("data from server", data)
-     setLanePositon(data.line)
-    })
-  }, []);
+  
  
  
   useEffect(() => {
@@ -74,15 +68,34 @@ function App() {
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
     {position.map((pos) =>
-    <Marker position= {pos}>
+    <Marker position={pos} eventHandlers={{
+      click: (e) =>{
+        console.log('marker click', e)
+        console.log(e.latlng)
+        doSomething()
+      }
+    }}>
       <Popup>
-        Dawson College
+        green line
       </Popup>
     </Marker>
   )};
   <Polyline positions={lanePositon}/>
   </MapContainer>
   );
+
+
+  function doSomething(){
+    fetch("lanes/1")
+    .then((res) => res.json())
+    .then((data) =>{
+     console.log("data from server", data)
+     setLanePositon(data.line)
+    })
+    
+  }
 }
+
+
 
 export default App;
