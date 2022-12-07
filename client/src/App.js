@@ -46,10 +46,10 @@ const polyline = [
 
 
 function App() {
-  const [position, setPosition] = useState([[45.4897, -73.5881]])
+  const [position, setPosition] = useState([])
   useEffect(() => {
     setPosition([[45.4897, -73.5881], [45.4800, -73.5889],[45.4890, -73.5870], [45.4980, -73.5889]])
-  });
+  }, []);
   
   return (
     <MapContainer 
