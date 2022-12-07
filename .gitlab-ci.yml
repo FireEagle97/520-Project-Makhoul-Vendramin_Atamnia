@@ -14,6 +14,7 @@ build:
     - main
     - master
     - staging
+    - server
   cache:
     paths:
       - node_modules/
