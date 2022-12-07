@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import GtfsRealtimeBindings  from 'gtfs-realtime-bindings';
 
 
-const url = 'https://api.stm.info/pub/od/gtfs-rt/ic/v2/tripUpdates';
+const url = 'https://api.stm.info/pub/od/gtfs-rt/ic/v2/vehiclePositions';
 
 (async () => {
   let response = await fetch(url, {
