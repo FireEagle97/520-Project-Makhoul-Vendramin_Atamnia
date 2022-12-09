@@ -10,6 +10,7 @@ import {
   Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
+import { marker, popup } from 'leaflet';
 
 
 function App() {
@@ -46,16 +47,36 @@ function App() {
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
     {position.map((pos) =>
-    <Marker position= {pos}>
+    <Marker position={pos} eventHandlers={{
+      click: (e) =>{
+        console.log('marker click', e)
+        console.log(e.latlng)
+        doSomething()
+      }
+    }}>
       <Popup>
        {/* change next to fetch bus lane  */}
         Dawson College
+        green line
       </Popup>
     </Marker>
   )};
   <Polyline positions={lanePositon} pathOptions={greenOptions} />
   </MapContainer>
   );
+
+
+  function doSomething(){
+    fetch("lanes/1")
+    .then((res) => res.json())
+    .then((data) =>{
+     console.log("data from server", data)
+     setLanePositon(data.line)
+    })
+    
+  }
 }
+
+
 
 export default App;
