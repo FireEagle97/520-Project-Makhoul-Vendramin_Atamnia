@@ -7,6 +7,8 @@ private_content/
 .vscode/
 */node_modules/
 /node_modules/
+*/gtfs_stm/
+/gtfs_stm/
 .lastcommit
 .vscode
 markdown_tools/
