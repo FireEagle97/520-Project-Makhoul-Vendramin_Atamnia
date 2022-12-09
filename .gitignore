@@ -6,6 +6,7 @@ private_content/
 .commitmessage
 .vscode/
 */node_modules/
+/node_modules/
 .lastcommit
 .vscode
 markdown_tools/
