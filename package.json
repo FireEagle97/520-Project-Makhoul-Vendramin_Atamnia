@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "cd client && npm install && npm run build && cd ../server && npm install",
-    "start": "cd server && node bin/wwww"
+    "start": "cd server && node bin/www"
   },
   "repository": {
     "type": "git",

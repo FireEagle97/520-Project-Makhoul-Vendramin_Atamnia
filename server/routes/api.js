@@ -36,13 +36,14 @@ router.get('/:busLine', (req, res) => {
                 [45.596572, -73.535376]
             ]});
         } catch(err){
-            res.status(400).send({"error":"not supported"});
+            res.status(400).send({"error":"not supported in api"});
         }
     }else{
-        res.status(400).send({"error":"no result"});
+        res.status(400).send({"error":"no result in api"});
     }
 })
-router.get('/*', (req, res) => {
-    res.status(404).send({"error":"not supported"});
+router.get('/', (req, res) => {
+    res.status(404).send({"error":"not supported in api"});
 })
+
 module.exports = router;
