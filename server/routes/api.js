@@ -1,7 +1,10 @@
 /* eslint-disable strict */
-
+const apiInfo = require("../controllers/trying-gtfs.js");
+// import getBusesPositions from '../../trying-gtfs.mjs';
 const express = require("express");
 const router = express.Router();
+
+
 
 router.get('/:busLine', (req, res) => {
     if(req.params.busLine.match("1")){
@@ -42,8 +45,22 @@ router.get('/:busLine', (req, res) => {
         res.status(400).send({"error":"no result in api"});
     }
 })
-router.get('/', (req, res) => {
-    res.status(404).send({"error":"not supported in api"});
+router.get('/', async (req, res) => {
+    try{
+        let data =  await apiInfo.getBusesPositions();
+        console.log("testing buses positions")
+        data.forEach(position => {
+            console.log("postions " + position)
+        });
+     
+        res.json(data);
+    }catch(err){
+        res.status(400).send({"error":"not supported in api"});
+        
+    }
 })
+// router.get('/', (req, res) => {
+//     res.status(404).send({"error":"not supported in api"});
+// })
 
 module.exports = router;

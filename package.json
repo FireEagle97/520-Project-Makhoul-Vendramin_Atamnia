@@ -20,6 +20,6 @@
   "homepage": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia#readme",
   "dependencies": {
     "gtfs-realtime-bindings": "^0.0.6",
-    "node-fetch": "^3.3.0"
+    "node-fetch": "^2.6.6"
   }
 }
