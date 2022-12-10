@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  
   "scripts": {
     "test": "jest",
-    "start": "node bin/www"
+    "start": "nodemon bin/www"
   },
   "keywords": [],
   "author": "",
