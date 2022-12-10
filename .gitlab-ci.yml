@@ -9,20 +9,21 @@ stages:
 build:
   stage: build
   script:
-    - npm install
+    - cd server && npm install && cd ../client && npm install
   only:
     - main
     - master
     - staging
-    - server
   cache:
     paths:
-      - node_modules/
+      - server/node_modules/
+      - client/node_modules/
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
-      - node_modules/
+      - server/node_modules/
+      - client/node_modules/
 
 test:
   stage: test
