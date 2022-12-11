@@ -1,4 +1,3 @@
-"use strict"
 require("dotenv").config()
 const dbUrl = process.env.ATLAS_URI
 const { MongoClient } = require("mongodb")
@@ -11,55 +10,55 @@ let instance
  */
 
 class DB{
-  constructor(){
+    constructor(){
     //instance is the singleton, defined in outer scope
-    if (!instance){
-      instance = this
-      this.client = new MongoClient(dbUrl)
-      this.db = null
-      this.collection = null
+        if (!instance){
+            instance = this
+            this.client = new MongoClient(dbUrl)
+            this.db = null
+            this.collection = null
+        }
+        return instance;
     }
-    return instance;
-  }
 
-  async connect(dbname, collName) {
-    if (instance.db){
-      return
+    async connect(dbname, collName) {
+        if (instance.db){
+            return
+        }
+        await instance.client.connect()
+        instance.db = await instance.client.db(dbname)
+        console.log("Successfully connected to MongoDB database " + dbname)
+        instance.collection = await instance.db.collection(collName)
     }
-    await instance.client.connect()
-    instance.db = await instance.client.db(dbname)
-    console.log("Successfully connected to MongoDB database " + dbname)
-    instance.collection = await instance.db.collection(collName)
-  }
 
-  async close() {
-    await instance.client.close()
-    instance = null
-  }
+    async close() {
+        await instance.client.close()
+        instance = null
+    }
 
-  async find(query) {
+    async find(query) {
     // projection if 0 means dont return this field, 1 means return it
-    return await instance.collection.find(query).toArray()
+        return await instance.collection.find(query).toArray()
     
-  }
+    }
 
-  async readAll() {
+    async readAll() {
     // projection if 0 means dont return this field, 1 means return it
-    return await instance.collection.find().toArray()
+        return await instance.collection.find().toArray()
     
-  }
+    }
 
-  async insert(busRoute) {
-    return await instance.collection.insertOne(busRoute)
-  }
+    async insert(busRoute) {
+        return await instance.collection.insertOne(busRoute)
+    }
 
-  async insertMany(busRoutes) {
-    return await instance.collection.insertMany(busRoutes)
-  }
+    async insertMany(busRoutes) {
+        return await instance.collection.insertMany(busRoutes)
+    }
 
-  async deleteAll() {
-    return await instance.collection.deleteMany({})
-  }
+    async deleteAll() {
+        return await instance.collection.deleteMany({})
+    }
 }
 
 module.exports = DB
