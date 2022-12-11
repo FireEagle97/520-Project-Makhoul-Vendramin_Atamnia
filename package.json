@@ -21,6 +21,6 @@
   "dependencies": {
     "compression": "^1.7.4",
     "gtfs-realtime-bindings": "^0.0.6",
-    "node-fetch": "^2.6.6"
+    "node-fetch": "^2.6.7"
   }
 }

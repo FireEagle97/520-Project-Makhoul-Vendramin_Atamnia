@@ -10,7 +10,7 @@ import {
   Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import { marker, popup } from 'leaflet';
+import { Icon, marker, popup } from 'leaflet';
 
 
 function App() {
@@ -18,22 +18,32 @@ function App() {
   const [lanePositon , setLanePositon] = useState([])
   
   useEffect(() => {
-    fetch("/lanes/1")
+    var newPosition = []
+    fetch("/lanes")
     .then((res) => res.json())
     .then((data) =>{
-     console.log("data from server", data)
-     setLanePositon(data.line)
+    console.log("data from server",data)
+     console.log("data from server", data[0].position.latitude, data[0].position.longitude)
+     //setLanePositon(data)
+    
+     data.map((pos) =>{
+      newPosition.push([pos.position.latitude, pos.position.longitude])
+     })
+     console.log("new positioon = " + newPosition)
+     setPosition(newPosition, [])
     })
   }, []);
  
  
-  useEffect(() => {
-    setPosition([[45.4897, -73.5881], [45.4800, -73.5889],[45.4890, -73.5870], [45.4980, -73.5889]])
-  }, []);
+  // useEffect(() => {
+  //   setPosition([[45.4897, -73.5881], [45.4800, -73.5889],[45.4890, -73.5870], [45.4980, -73.5889]])
+  // }, []);
+
+  
 
   const greenOptions = { color: 'green',
                           weight : 4 }
-
+  
 
   return (
     <MapContainer 
@@ -47,9 +57,8 @@ function App() {
       url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
     />
     {position.map((pos) =>
-    <Marker position={pos} eventHandlers={{
+    <Marker  position={pos} eventHandlers={{
       click: (e) =>{
-        console.log('marker click', e)
         console.log(e.latlng)
         doSomething()
       }
