@@ -1,5 +1,3 @@
-"use strict"
-
 const DB = require("./db")
 
 const demoRouteId = "440"
@@ -13,24 +11,26 @@ const collection = "BusRoutes"
 demoDb()
 
 async function demoDb() {
-  try {
-    const db = new DB()
-    await db.connect(dbname, collection)
-    const busRoute = (await db.find({routeId: demoRouteId}))[0]
-    console.log(busRoute)
+    try {
+        const db = new DB()
+        await db.connect(dbname, collection)
+        const busRoute = (await db.find({routeId: demoRouteId}))[0]
+        console.log(busRoute)
 
-    // show you can find direction from tripId
-    proveDirectionFromTripId(demoTripIdDirection0, busRoute)
-    proveDirectionFromTripId(demoTripIdDirection1, busRoute)
-  } catch (e) {
-    console.error(e.message);
-    process.exit();
-  }
+        // show you can find direction from tripId
+        // proveDirectionFromTripId(demoTripIdDirection0, busRoute)
+        // proveDirectionFromTripId(demoTripIdDirection1, busRoute)
+    } catch (e) {
+        console.error(e.message);
+        process.exit();
+    }
 }
 
 function proveDirectionFromTripId(tripId, busRoute){
-  const direction = busRoute.direction1.tripIds.includes(tripId) ? 1 : 0
-  console.log(`Trip id ${tripId} is direction: ${direction}`)
-  console.log(`Its route shape is:`)
-  console.log(busRoute["direction" + direction].shapes)
+    const direction = busRoute.direction1.tripIds.includes(tripId) ? 1 : 0
+    console.log(`Trip id ${tripId} is direction: ${direction}`)
+    console.log(`Its route shape is:`)
+    console.log(busRoute["direction" + direction].shapes)
 }
+
+module.exports = {demoDb}
