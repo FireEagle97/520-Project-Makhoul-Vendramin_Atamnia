@@ -16,21 +16,22 @@ import { Icon, marker, popup } from 'leaflet';
 function App() {
   const [position, setPosition] = useState([[45.4897, -73.5881]])
   const [lanePositon , setLanePositon] = useState([])
+  const [busses, setBusses] = useState([])
   
   useEffect(() => {
     var newPosition = []
-    fetch("/lanes")
+    fetch("/lanes/")
     .then((res) => res.json())
     .then((data) =>{
-    console.log("data from server",data)
-     console.log("data from server", data[0].position.latitude, data[0].position.longitude)
+    console.log("data from server",data[0].position)
+    //  console.log("data from server", data[0].position.latitude, data[0].position.longitude)
      //setLanePositon(data)
     
-     data.map((pos) =>{
-      newPosition.push([pos.position.latitude, pos.position.longitude])
-     })
-     console.log("new positioon = " + newPosition)
-     setPosition(newPosition, [])
+    //  data.map((pos) =>{
+    //   newPosition.push([pos.position.latitude, pos.position.longitude])
+    //  })
+    //  console.log("new positioon = " + newPosition)
+    //  setPosition(newPosition, [])
     })
   }, []);
  
