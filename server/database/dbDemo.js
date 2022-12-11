@@ -27,6 +27,7 @@ async function demoDb() {
 }
 
 function proveDirectionFromTripId(busRoute, busTrip){
+    
     const direction = busRoute.direction1.tripIds.includes(busTrip) ? 1 : 0
     console.log(`Trip id ${busTrip} is direction: ${direction}`)
     console.log(`Its route shape is:`)
