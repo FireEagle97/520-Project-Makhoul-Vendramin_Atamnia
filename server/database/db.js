@@ -39,13 +39,13 @@ class DB{
 
   async find(query) {
     // projection if 0 means dont return this field, 1 means return it
-    return await instance.collection.find(query).projection({ _id: 0 }).toArray()
+    return await instance.collection.find(query).toArray()
     
   }
 
   async readAll() {
     // projection if 0 means dont return this field, 1 means return it
-    return await instance.collection.find().projection({ _id: 0 }).toArray()
+    return await instance.collection.find().toArray()
     
   }
 
