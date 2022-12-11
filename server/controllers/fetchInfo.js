@@ -45,8 +45,13 @@ async function getBusInfoFromDB(routeId, tripId){
     if (busRoute === undefined){
         return "bus Route doesn't Exist";
     }
-    const direction = busRoute.direction1.tripIds.includes(tripId) ? 1 : undefined;
-    if (direction === undefined){
+    let direction;
+    if (busRoute.direction1.tripIds.includes(tripId) ){
+        direction = 1;
+    }else if (busRoute.direction0.tripIds.includes(tripId) ){
+        direction = 0;
+    }else {
+        direction = undefined;
         return "bus trip id doesn't exist";
     }
     let busInfo = {
