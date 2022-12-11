@@ -1,0 +1,26 @@
+{
+  "name": "520-project-makhoul-vendramin_atamnia",
+  "version": "1.0.0",
+  "description": "track STM buses schedule and movement",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "start": "cd server && node bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia.git"
+  },
+  "author": "Dany Makhoul, Alessandro Vendramin, Adam Atamnia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia/issues"
+  },
+  "homepage": "https://gitlab.com/520-01-F22/section01/projteam08/520-project-makhoul-vendramin_atamnia#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "gtfs-realtime-bindings": "^0.0.6",
+    "node-fetch": "^2.6.7"
+  }
+}

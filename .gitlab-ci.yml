@@ -1,0 +1,50 @@
+#inspiration: https://gist.github.com/rishitells/3c4536131819cff4eba2c8ab5bbb4570
+# package.json jest path discovered in https://stackoverflow.com/questions/60671752/deploying-via-google-cloud-build-trigger-sh-1-jest-permission-denied
+image: node:latest
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - cd server && npm install && cd ../client && npm install
+  only:
+    - main
+    - master
+    - staging
+  cache:
+    paths:
+      - server/node_modules/
+      - client/node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - server/node_modules/
+      - client/node_modules/
+
+test:
+  stage: test
+  only:
+    - main
+    - master
+    - staging
+  dependencies:
+    - build
+  script:
+    - cd server && npm run test
+
+
+# from M Frydrychowicz
+lint:
+  stage: test
+  only:
+    - main
+    - master
+    - staging
+  before_script:
+    - npm install -g eslint
+  script:
+    - eslint --ext .js .
