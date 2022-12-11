@@ -10,7 +10,7 @@ import {
   Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import { marker, popup } from 'leaflet';
+import { Icon, marker, popup } from 'leaflet';
 
 
 function App() {
@@ -31,9 +31,11 @@ function App() {
     setPosition([[45.4897, -73.5881], [45.4800, -73.5889],[45.4890, -73.5870], [45.4980, -73.5889]])
   }, []);
 
+  
+
   const greenOptions = { color: 'green',
                           weight : 4 }
-
+  
 
   return (
     <MapContainer 
@@ -47,7 +49,7 @@ function App() {
       url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
     />
     {position.map((pos) =>
-    <Marker position={pos} eventHandlers={{
+    <Marker  position={pos} eventHandlers={{
       click: (e) =>{
         console.log('marker click', e)
         console.log(e.latlng)
