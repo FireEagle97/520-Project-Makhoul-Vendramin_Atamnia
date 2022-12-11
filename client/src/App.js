@@ -20,8 +20,7 @@ function App() {
     fetch("/lanes")
     .then((res) => res.json())
     .then((data) =>{
-    console.log("data from server",data)
-     console.log("data from server", data[0].position.latitude, data[0].position.longitude)
+
     
      // eslint-disable-next-line array-callback-return
      data.map((pos) =>{
@@ -45,7 +44,7 @@ function App() {
         >
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
     {busses.map((bus) =>
     <Marker position={[bus.position.latitude, bus.position.longitude]} eventHandlers={{
