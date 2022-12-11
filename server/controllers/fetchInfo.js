@@ -1,9 +1,10 @@
-// /* eslint-disable indent */
 const fetch = require('node-fetch');
+const DB = require("../database/db");
 const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
-
-
+const dbname = "StmDatabase"
+const collection = "BusRoutes"
 const url = 'https://api.stm.info/pub/od/gtfs-rt/ic/v2/vehiclePositions';
+
 async function fetchAPI(){
     let response = await fetch(url, {
         method: 'GET',
@@ -16,18 +17,8 @@ async function fetchAPI(){
         throw new Error(`HTTP error! status: ${response.status}`);
     } else {
         const body = await response.arrayBuffer();
-        // console.log(body);
-        // you have to convert the arrayBuffer into Uint8Array: 
-        // https://github.com/protobufjs/protobuf.js/issues/869
-        // eslint-disable-next-line max-len
         const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(body));
         return feed
-        // feed.entity.forEach(function (entity) {
-        //     // if (entity.trip_update) {
-        //     //   console.log(entity.trip_update);
-        //     // }
-        //     console.log(entity.vehicle);
-        // });
     }
 }
 async function getBusesPositions(){
@@ -46,16 +37,28 @@ async function getBusesPositions(){
     return positionsList
 }
 
+async function getBusInfoFromDB(routeId, tripId){
+   
+    const db = new DB();
+    await db.connect(dbname, collection);
+    const busRoute = (await db.find({routeId: routeId}))[0];
+    if (busRoute === undefined){
+        return "bus Route doesn't Exist";
+    }
+    const direction = busRoute.direction1.tripIds.includes(tripId) ? 1 : undefined;
+    if (direction === undefined){
+        return "bus trip id doesn't exist";
+    }
+    let busInfo = {
+        "routeId" : busRoute.routeId,
+        "tripId" : tripId,
+        "direction" : direction,
+        "busLane" : busRoute["direction" + direction].shapes,
+        "busStops" : busRoute["direction" + direction].stops
+    }
+    return busInfo;
 
-module.exports = {getBusesPositions}
+}
 
-// request(requestSettings, function (error, response, body) {
-//   if (!error && response.statusCode == 200) {
-//     var feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(body);
-//     feed.entity.forEach(function (entity) {
-//       if (entity.trip_update) {
-//         console.dir(entity.trip_update);
-//       }
-//     });
-//   }
-// });
+module.exports = {getBusesPositions, getBusInfoFromDB}
+

@@ -18,19 +18,21 @@ async function demoDb() {
         console.log(busRoute)
 
         // show you can find direction from tripId
-        // proveDirectionFromTripId(demoTripIdDirection0, busRoute)
-        // proveDirectionFromTripId(demoTripIdDirection1, busRoute)
+        proveDirectionFromTripId(demoTripIdDirection0, busRoute)
+        proveDirectionFromTripId(demoTripIdDirection1, busRoute)
     } catch (e) {
         console.error(e.message);
         process.exit();
     }
 }
 
-function proveDirectionFromTripId(tripId, busRoute){
-    const direction = busRoute.direction1.tripIds.includes(tripId) ? 1 : 0
-    console.log(`Trip id ${tripId} is direction: ${direction}`)
+function proveDirectionFromTripId(busRoute, busTrip){
+    const direction = busRoute.direction1.tripIds.includes(busTrip) ? 1 : 0
+    console.log(`Trip id ${busTrip} is direction: ${direction}`)
     console.log(`Its route shape is:`)
     console.log(busRoute["direction" + direction].shapes)
+    console.log(`Its stops:`)
+    console.log(busRoute["direction" + direction].stops)
 }
 
 module.exports = {demoDb}
