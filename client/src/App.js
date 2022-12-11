@@ -14,24 +14,22 @@ import { Icon, marker, popup } from 'leaflet';
 
 
 function App() {
-  const [position, setPosition] = useState([[45.4897, -73.5881]])
   const [lanePositon , setLanePositon] = useState([])
   const [busses, setBusses] = useState([])
-  
+
   useEffect(() => {
-    var newPosition = []
-    fetch("/lanes/")
+    var allBusses = []
+    fetch("/lanes")
     .then((res) => res.json())
     .then((data) =>{
-    console.log("data from server",data[0].position)
-    //  console.log("data from server", data[0].position.latitude, data[0].position.longitude)
-     //setLanePositon(data)
+    console.log("data from server",data)
+     console.log("data from server", data[0].position.latitude, data[0].position.longitude)
     
-    //  data.map((pos) =>{
-    //   newPosition.push([pos.position.latitude, pos.position.longitude])
-    //  })
-    //  console.log("new positioon = " + newPosition)
-    //  setPosition(newPosition, [])
+     data.map((pos) =>{
+      allBusses.push(pos)
+     })
+     
+     setBusses(allBusses, [])
     })
   }, []);
  
@@ -57,11 +55,11 @@ function App() {
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
     />
-    {position.map((pos) =>
-    <Marker  position={pos} eventHandlers={{
+    {busses.map((bus) =>
+    <Marker position={[bus.position.latitude, bus.position.longitude]} eventHandlers={{
       click: (e) =>{
-        console.log(e.latlng)
-        doSomething()
+        console.log('clicked')
+        doSomething(bus.routeId, bus.tripId)
       }
     }}>
       <Popup>
@@ -76,12 +74,12 @@ function App() {
   );
 
 
-  function doSomething(){
-    fetch("lanes/1")
+  function doSomething(routeId, tripId){
+    fetch("lanes/" + routeId + "/" + tripId)
     .then((res) => res.json())
     .then((data) =>{
      console.log("data from server", data)
-     setLanePositon(data.line)
+     //setLanePositon(data.line)
     })
     
   }
