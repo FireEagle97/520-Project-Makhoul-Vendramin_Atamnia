@@ -1,6 +1,4 @@
 // /* eslint-disable indent */
-// import fetch from 'node-fetch';
-// import GtfsRealtimeBindings  from 'gtfs-realtime-bindings';
 const fetch = require('node-fetch');
 const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
@@ -32,22 +30,22 @@ async function fetchAPI(){
         // });
     }
 }
-// fetchAPI()
 async function getBusesPositions(){
     let feedlist = await fetchAPI()
     let positionsList = []
     feedlist.entity.forEach(entity => {
-        // entitiesList.add(entity)
         let busPosition = {
-            "id" : entity.id,
-            "position" : entity.vehicle.position
+            "routeId" : entity.vehicle.trip.routeId,
+            "tripId" : entity.vehicle.trip.tripId,
+            "position" : entity.vehicle.position,
+            "occupancyStatus" : entity.vehicle.occupancyStatus
         }
         positionsList.push(busPosition)
     })
 
     return positionsList
 }
-// const busesPosition = getBusesPositions()
+
 
 module.exports = {getBusesPositions}
 

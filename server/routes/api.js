@@ -1,6 +1,6 @@
 /* eslint-disable strict */
 const apiInfo = require("../controllers/trying-gtfs.js");
-// import getBusesPositions from '../../trying-gtfs.mjs';
+// const testDB = require("../database/dbDemo")
 const express = require("express");
 const router = express.Router();
 
@@ -41,24 +41,32 @@ router.get('/:busLine', (req, res) => {
         } catch(err){
             res.status(400).send({"error":"not supported in api"});
         }
+
+
     }else{
         res.status(400).send({"error":"no result in api"});
     }
 })
 router.get('/', async (req, res) => {
     try{
-        let data =  await apiInfo.getBusesPositions();
-        console.log("testing buses positions")
-        data.forEach(position => {
-            console.log("postions " + position)
-        });
-     
+        let data =  await apiInfo.getBusesPositions()
         res.json(data);
     }catch(err){
         res.status(400).send({"error":"not supported in api"});
         
     }
 })
+
+// router.get('/test', (req, res) => {
+//     try{
+//         testDB.demoDb()
+     
+//         res.send("testing");
+//     }catch(err){
+//         res.status(400).send({"error":"not supported in db"});
+        
+//     }
+// })
 // router.get('/', (req, res) => {
 //     res.status(404).send({"error":"not supported in api"});
 // })
