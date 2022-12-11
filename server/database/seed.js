@@ -39,6 +39,8 @@ function parseCSV(path, treatRowCallback, endCallback) {
         });
 }
 
+// some files are huge (300MB+) in the gtfs folder so we will not send it to gitlab, 
+// it is gitignored
 const gtfsFolderPath = "../../gtfs_stm/"
 const seenRoutesSet = new Set()
 const shapeIdToRouteIdCommaDirection = new Map()
@@ -119,7 +121,7 @@ function parseShapes(finishedCallback) {
     parseCSV(gtfsFolderPath + "shapes.txt", row => {
     //0: shape_id, 1: lat, 2: lon
 
-        if(shapeIdToRouteIdCommaDirection.has(row[0])){
+        if(shapeIdToRouteIdCommaDirection.has(row[0]) && isNumeric(row[1]) && isNumeric(row[2])){
             const routeId = shapeIdToRouteIdCommaDirection.get(row[0]).split(",")[0]
             const directionId = shapeIdToRouteIdCommaDirection.get(row[0]).split(",")[1]
     
@@ -161,7 +163,7 @@ function parseStops(finishedCallback) {
     parseCSV(gtfsFolderPath + "stops.txt", row => {
     //0: stop_id, 2: stop_name, 3: lat, 4: lon  
 
-        if(stopIdToRouteIdCommaDirections.has(row[0])){
+        if(stopIdToRouteIdCommaDirections.has(row[0]) && isNumeric(row[3]) && isNumeric(row[4])){
 
             stopIdToRouteIdCommaDirections.get(row[0]).forEach(string => {
                 const routeId = string.split(",")[0]
@@ -196,3 +198,8 @@ async function addBusRoutesToDB() {
         process.exit();
     }
 }
+
+function isNumeric(str) {
+    return +str === +str
+}
+
