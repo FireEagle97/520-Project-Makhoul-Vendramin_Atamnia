@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import React, {useState, useEffect} from 'react';
-
 import {
   MapContainer,
   TileLayer,
@@ -10,12 +8,12 @@ import {
   Polyline
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import { Icon, marker, popup } from 'leaflet';
 
 
 function App() {
   const [lanePositon , setLanePositon] = useState([])
   const [busses, setBusses] = useState([])
+
 
   useEffect(() => {
     var allBusses = []
@@ -25,6 +23,7 @@ function App() {
     console.log("data from server",data)
      console.log("data from server", data[0].position.latitude, data[0].position.longitude)
     
+     // eslint-disable-next-line array-callback-return
      data.map((pos) =>{
       allBusses.push(pos)
      })
@@ -33,14 +32,7 @@ function App() {
     })
   }, []);
  
- 
-  // useEffect(() => {
-  //   setPosition([[45.4897, -73.5881], [45.4800, -73.5889],[45.4890, -73.5870], [45.4980, -73.5889]])
-  // }, []);
-
-  
-
-  const greenOptions = { color: 'green',
+  const colorOptions = { color: 'blue',
                           weight : 4 }
   
 
@@ -58,33 +50,30 @@ function App() {
     {busses.map((bus) =>
     <Marker position={[bus.position.latitude, bus.position.longitude]} eventHandlers={{
       click: (e) =>{
-        console.log('clicked')
-        doSomething(bus.routeId, bus.tripId)
+        fetchBusInfo(bus.routeId, bus.tripId)
+        
       }
     }}>
       <Popup>
-       {/* change next to fetch bus lane  */}
-        Dawson College
-        green line
+        Route number : {bus.routeId}
+        <br></br>
+        Occupancy Status : {bus.occupancyStatus} out of 5 
       </Popup>
+      <Polyline positions={lanePositon} pathOptions={colorOptions} />
+       
     </Marker>
   )};
-  <Polyline positions={lanePositon} pathOptions={greenOptions} />
   </MapContainer>
   );
 
 
-  function doSomething(routeId, tripId){
+  function fetchBusInfo(routeId, tripId){
     fetch("lanes/" + routeId + "/" + tripId)
     .then((res) => res.json())
     .then((data) =>{
-     console.log("data from server", data)
-     //setLanePositon(data.line)
+     setLanePositon(data.response.busLane)
     })
-    
   }
 }
-
-
 
 export default App;
