@@ -20,8 +20,7 @@ function App() {
     fetch("/lanes")
     .then((res) => res.json())
     .then((data) =>{
-    console.log("data from server",data)
-     console.log("data from server", data[0].position.latitude, data[0].position.longitude)
+
     
      // eslint-disable-next-line array-callback-return
      data.map((pos) =>{
