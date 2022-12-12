@@ -13,7 +13,6 @@ import L from 'leaflet';
 
 const busIcon = new L.Icon({
     iconUrl: require('./assets/marker-icon.webp'),
-    shadowUrl: require('./assets/marker-shadow.webp'),
     iconSize: [32,32],
 
 })
