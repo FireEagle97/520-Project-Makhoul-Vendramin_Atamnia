@@ -55,11 +55,14 @@ async function getBusInfoFromDB(routeId, tripId){
         return "bus trip id doesn't exist";
     }
     let busInfo = {
-        "routeId" : busRoute.routeId,
-        "tripId" : tripId,
-        "direction" : direction,
-        "busLane" : busRoute["direction" + direction].shapes,
-        "busStops" : busRoute["direction" + direction].stops
+        routeId : busRoute.routeId,
+        tripId : tripId,
+        direction : direction,
+        busLane : busRoute["direction" + direction].shapes,
+        busStops : busRoute["direction" + direction].stops,
+        routeColor: busRoute.routeColor,
+        routeLongName: busRoute.routeLongName,
+        headSign: busRoute["direction" + direction].headsign
     }
     return busInfo;
 

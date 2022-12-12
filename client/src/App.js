@@ -11,7 +11,7 @@ import "leaflet/dist/leaflet.css"
 
 
 function App() {
-  const [lanePositon , setLanePositon] = useState([])
+  const [activeBus , setActiveBus] = useState([])
   const [busses, setBusses] = useState([])
 
 
@@ -46,22 +46,38 @@ function App() {
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
-    {busses.map((bus) =>
-    <Marker position={[bus.position.latitude, bus.position.longitude]} eventHandlers={{
-      click: (e) =>{
-        fetchBusInfo(bus.routeId, bus.tripId)
+    
+    {busses.map((bus, i) =>
+      <Marker position={[bus.position.latitude, bus.position.longitude]} key={i} eventHandlers={{
+        click: (e) =>{
+          fetchBusInfo(bus.routeId, bus.tripId)
+          
+        }
+      }}>
+        <Popup>
+          Route number : {bus.routeId}
+          <br></br>
+          Occupancy Status : {bus.occupancyStatus} out of 5 
+        </Popup>
         
-      }
-    }}>
+      </Marker>
+    )};
+
+    <Polyline positions={activeBus.busLane} pathOptions={{ color: activeBus.routeColor, weight : 4 }}>
       <Popup>
-        Route number : {bus.routeId}
-        <br></br>
-        Occupancy Status : {bus.occupancyStatus} out of 5 
+        {activeBus.headSign + activeBus.routeLongName}
       </Popup>
-      <Polyline positions={lanePositon} pathOptions={colorOptions} />
-       
-    </Marker>
-  )};
+    </Polyline>
+
+    {activeBus.busStops.map((stop, i) =>
+      <Marker position={[stop.lat, stop.lon]} key={i}>
+        <Popup>
+          {stop.name} 
+        </Popup>
+        
+      </Marker>
+    )};
+
   </MapContainer>
   );
 
@@ -70,7 +86,7 @@ function App() {
     fetch("lanes/" + routeId + "/" + tripId)
     .then((res) => res.json())
     .then((data) =>{
-     setLanePositon(data.response.busLane)
+      setActiveBus(data.response)
     })
   }
 }
