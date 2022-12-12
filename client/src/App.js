@@ -9,6 +9,14 @@ import {
 } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 
+import L from 'leaflet';
+
+const busIcon = new L.Icon({
+    iconUrl: require('./assets/marker-icon.webp'),
+    shadowUrl: require('./assets/marker-shadow.webp'),
+    iconSize: [32,32],
+
+})
 
 function App() {
   const [lanePositon , setLanePositon] = useState([])
@@ -47,7 +55,7 @@ function App() {
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
     {busses.map((bus) =>
-    <Marker position={[bus.position.latitude, bus.position.longitude]} eventHandlers={{
+    <Marker position={[bus.position.latitude, bus.position.longitude]} icon={busIcon} eventHandlers={{
       click: (e) =>{
         fetchBusInfo(bus.routeId, bus.tripId)
         
