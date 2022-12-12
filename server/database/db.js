@@ -1,6 +1,6 @@
 require("dotenv").config()
 const dbUrl = process.env.ATLAS_URI
-const { MongoClient } = require("mongodb")
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 let instance
 
@@ -14,7 +14,10 @@ class DB{
     //instance is the singleton, defined in outer scope
         if (!instance){
             instance = this
-            this.client = new MongoClient(dbUrl)
+            this.client = new MongoClient(
+                dbUrl, 
+                { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }
+            )
             this.db = null
             this.collection = null
         }
